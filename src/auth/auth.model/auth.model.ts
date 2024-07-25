@@ -9,12 +9,12 @@ import { Document } from 'mongoose';
 }*/
 @Schema({ timestamps: true })
 export class AuthModel extends Document {
-  @Prop()
-  email: string;
-  @Prop()
-  passwordHash: string;
-  @Prop({ default: Date.now })
-  createdAt: Date;
+	@Prop()
+	email: string;
+	@Prop()
+	passwordHash: string;
+	@Prop({ default: Date.now })
+	createdAt: Date;
 }
 
 export const AuthSchema = SchemaFactory.createForClass(AuthModel);

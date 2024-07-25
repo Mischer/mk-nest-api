@@ -11,26 +11,26 @@ import { UsersModule } from './users/users.module';
 import { getMongoConfig } from './configs/mongo.config';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot(),
-    /*    MongooseModule.forRoot('mongodb://localhost:27017/top-api', {
+	imports: [
+		ConfigModule.forRoot(),
+		/*    MongooseModule.forRoot('mongodb://localhost:27017/top-api', {
       user: 'admin',
       pass: 'admin',
       authSource: 'admin',
     }),*/
-    MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: getMongoConfig,
-      inject: [ConfigService],
-    }),
-    AuthModule,
-    TopPageModule,
-    ProductModule,
-    ReviewModule,
-    UsersModule,
-  ],
-  controllers: [AppController],
-  providers: [AppService],
-  exports: [ConfigModule],
+		MongooseModule.forRootAsync({
+			imports: [ConfigModule],
+			useFactory: getMongoConfig,
+			inject: [ConfigService],
+		}),
+		AuthModule,
+		TopPageModule,
+		ProductModule,
+		ReviewModule,
+		UsersModule,
+	],
+	controllers: [AppController],
+	providers: [AppService],
+	exports: [ConfigModule],
 })
 export class AppModule {}

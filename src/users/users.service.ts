@@ -5,14 +5,14 @@ import { Model } from 'mongoose';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
+	constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  async getByEmail(email: string) {
-    return this.userModel.findOne({ email });
-  }
+	async getByEmail(email: string) {
+		return this.userModel.findOne({ email });
+	}
 
-  async createUser({ email, password }: { email: string; password: string }) {
-    const newUser = new this.userModel({ email, password });
-    return newUser.save();
-  }
+	async createUser({ email, password }: { email: string; password: string }) {
+		const newUser = new this.userModel({ email, password });
+		return newUser.save();
+	}
 }

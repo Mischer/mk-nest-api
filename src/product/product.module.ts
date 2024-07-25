@@ -4,11 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ProductModel, ProductSchema } from './product.model/product.model';
 
 @Module({
-  controllers: [ProductController],
-  imports: [
-    MongooseModule.forFeature([
-      { name: ProductModel.name, schema: ProductSchema },
-    ]),
-  ],
+	controllers: [ProductController],
+	imports: [MongooseModule.forFeature([{ name: ProductModel.name, schema: ProductSchema }])],
 })
 export class ProductModule {}
