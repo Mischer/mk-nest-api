@@ -29,12 +29,21 @@ describe('AppController (e2e)', () => {
 		await app.init();
 	});
 
-	it('/review/create (POST)', async () => {
+	it('/review/create (POST) -  success', async () => {
 		const res = await request(app.getHttpServer()).post('/review/create').send(testDto);
 
 		expect(res?.status).toEqual(201);
 		expect(res?.body?._id).toBeDefined();
 		createdId = res?.body?._id;
+	});
+
+	it('/review/create (POST) - fail', async () => {
+		const res = await request(app.getHttpServer())
+			.post('/review/create')
+			.send({ ...testDto, rating: 6 });
+
+		expect(res?.statusCode).toEqual(400);
+		expect(res?.body?.message[0]).toEqual('Value too big');
 	});
 
 	it('/review/byProduct/:productId (GET) - success', async () => {
