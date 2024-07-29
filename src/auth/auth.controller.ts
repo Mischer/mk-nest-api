@@ -8,7 +8,6 @@ export class AuthController {
 	constructor(private readonly authService: AuthService) {}
 	@UsePipes(new ValidationPipe())
 	@Post('register')
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 	async register(@Body() dto: AuthDto) {
 		const existingUser = await this.authService.findUser(dto.email);
 		if (existingUser) {
@@ -17,8 +16,11 @@ export class AuthController {
 		return this.authService.createUser(dto);
 	}
 
+	@UsePipes(new ValidationPipe())
 	@HttpCode(200)
 	@Post('login')
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
-	async login(@Body() dto: AuthDto) {}
+	async login(@Body() { email, password }: AuthDto) {
+		const user = await this.authService.validateUser(email, password);
+		return this.authService.login(user.email);
+	}
 }

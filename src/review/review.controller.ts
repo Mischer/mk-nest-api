@@ -7,12 +7,14 @@ import {
 	HttpStatus,
 	Param,
 	Post,
+	UseGuards,
 	UsePipes,
 	ValidationPipe,
 } from '@nestjs/common';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { ReviewService } from './review.service';
 import { REVIEW_NOT_FOUND } from './review.constants';
+import { JwtAuthGuard } from '../guards/jwt.guard';
 
 @Controller('review')
 export class ReviewController {
@@ -20,13 +22,11 @@ export class ReviewController {
 
 	@UsePipes(new ValidationPipe())
 	@Post('create')
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	async create(@Body() dto: CreateReviewDto) {
 		return this.reviewService.create(dto);
 	}
 
 	@Delete(':id')
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	async delete(@Param('id') id: string) {
 		const deletedDoc = await this.reviewService.delete(id);
 		if (!deletedDoc) {
@@ -34,14 +34,13 @@ export class ReviewController {
 		}
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@Delete('byProduct/:productId')
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	async deleteByProductId(@Param('productId') productId: string) {
 		return this.reviewService.deleteByProductId(productId);
 	}
 
 	@Get('byProduct/:productId')
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	async getByProduct(@Param('productId') productId: string) {
 		return this.reviewService.findByProductId(productId);
 	}
