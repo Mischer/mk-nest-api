@@ -8,8 +8,8 @@ import { Document } from 'mongoose';
   // updatedAt: Date;
 }*/
 @Schema({ timestamps: true })
-export class AuthModel extends Document {
-	@Prop()
+export class UserModel extends Document {
+	@Prop({ unique: true })
 	email: string;
 	@Prop()
 	passwordHash: string;
@@ -17,4 +17,4 @@ export class AuthModel extends Document {
 	createdAt: Date;
 }
 
-export const AuthSchema = SchemaFactory.createForClass(AuthModel);
+export const UserSchema = SchemaFactory.createForClass(UserModel);

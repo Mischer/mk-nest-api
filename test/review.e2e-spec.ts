@@ -54,9 +54,7 @@ describe('AppController (e2e)', () => {
 	});
 
 	it('/review/byProduct/:productId (GET) - fail', async () => {
-		const res = await request(app.getHttpServer()).get(
-			`/review/byProduct/${new Types.ObjectId().toHexString()}`,
-		);
+		const res = await request(app.getHttpServer()).get(`/review/byProduct/${new Types.ObjectId().toHexString()}`);
 
 		expect(res?.status).toEqual(200);
 		expect(res?.body?.length).toBe(0);
@@ -69,9 +67,7 @@ describe('AppController (e2e)', () => {
 	});
 
 	it('/review/:id (DELETE) - fail', async () => {
-		const res = await request(app.getHttpServer()).delete(
-			`/review/${new Types.ObjectId().toHexString()}`,
-		);
+		const res = await request(app.getHttpServer()).delete(`/review/${new Types.ObjectId().toHexString()}`);
 
 		expect(res?.status).toEqual(404);
 		expect(res?.body?.message).toEqual(REVIEW_NOT_FOUND);

@@ -1,8 +1,8 @@
 import { IsString } from 'class-validator';
 
 export class AuthDto {
-	@IsString({ required: true })
+	@IsString()
 	email: string;
-	@IsString({ required: true })
+	@IsString()
 	password: string;
 }
