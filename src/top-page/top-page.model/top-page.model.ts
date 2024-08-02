@@ -11,7 +11,7 @@ export enum TopLevelCategory {
 @Schema()
 export class HH {
 	@Prop({ required: true })
-	count: string;
+	count: number;
 
 	@Prop({ required: true })
 	juniorSalary: number;
@@ -44,8 +44,17 @@ export class TopPageModel extends Document {
 	@Prop({ required: true })
 	secondCategory: TopLevelCategory;
 
-	@Prop({ required: true })
+	@Prop({ required: true, unique: true })
+	alias: string;
+
+	@Prop({ required: true, text: true })
 	title: string;
+
+	@Prop({ required: true })
+	metaTitle: string;
+
+	@Prop({ required: true })
+	metaDescription: string;
 
 	@Prop({ required: true })
 	category: string;
@@ -67,3 +76,5 @@ export class TopPageModel extends Document {
 }
 
 export const TopPageSchema = SchemaFactory.createForClass(TopPageModel);
+
+TopPageSchema.index({ title: 'text', seoText: 'text' });
