@@ -10,8 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Publish to registry
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
             registry: docker.pkg.github.com
