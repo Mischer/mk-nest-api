@@ -3,6 +3,7 @@ import * as request from 'supertest';
 import { INestApplication } from '@nestjs/common';
 import { AppModule } from './../src/app.module';
 import * as path from 'path';
+import { format } from 'date-fns';
 
 describe('FilesController (e2e)', () => {
 	let app: INestApplication;
@@ -21,7 +22,7 @@ describe('FilesController (e2e)', () => {
 	});
 
 	it('/files/upload (POST) should upload a file', async () => {
-		const filePath = path.resolve(__dirname, 'test-files', '1 (2).jpg');
+		const filePath = path.resolve(__dirname, 'test-files', 'test.jpg');
 
 		const response = await request(app.getHttpServer())
 			.post('/files/upload')
@@ -29,6 +30,7 @@ describe('FilesController (e2e)', () => {
 			.attach('file', filePath);
 
 		expect(response.status).toBe(200);
-		expect(response.body).toEqual([{ name: '1 (2).jpg', url: '2024-08-05/1 (2).jpg' }]);
+		const date = format(new Date(), 'yyyy-MM-dd');
+		expect(response.body).toEqual([{ name: 'test.jpg', url: `${date}/test.jpg` }]);
 	});
 });
